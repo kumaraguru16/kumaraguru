@@ -1,16 +1,5 @@
 <?php
-require('../vendor/autoload.php');
-{
-  "require" : {
-    "silex/silex": "^2.0.4",
-    "monolog/monolog": "^1.22",
-    "twig/twig": "^2.0",
-    "symfony/twig-bridge": "^3"
-  },
-  "require-dev": {
-    "heroku/heroku-buildpack-php": "*"
-  }
-}
+
 $result="";
 if(isset($_POST['insert'])){
 	require_once'PHPMailerAutoload.php';
