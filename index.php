@@ -1,18 +1,23 @@
 <?php
-
+/*use PHPMailer\PHPMailer\PHPMailer;
+	require 'vendor/autoload.php';
 $result="";
 if(isset($_POST['insert'])){
-	require_once'PHPMailerAutoload.php';
-	$mail= new PHPMailer;
-	$mail->SMTPDebug = 3;                               
+	
+
+// Load Composer's autoloader
+
+
+// Instantiation and passing `true` enables exceptions
+$mail = new PHPMailer(true);	$mail->SMTPDebug = 1;                               
 //Set PHPMailer to use SMTP.
 $mail->isSMTP();  
-	$mail->Host='smtp.gmail.com';
+	smtp.gmail.com';
 	$mail->Port=587;
 	$mail->SMTPAuth=true;
-	$mail->SMTPSecure='tls';
-	$mail->Username='tokumaraguru.m@gmail.com';
-	$mail->Password='951369147123567';
+	$mail->tlstls';
+	$mail->Username='17tuit040@skct.edu.in';
+	$mail->Password='kumaraguru@2';
 	$mail->setFrom($_POST['email'],$_POST['name']);
 	$mail->addAddress('tokumaraguru.m@gmail.com');
 	$mail->addReplyTo($_POST['email'],$_POST['name']);
@@ -21,14 +26,49 @@ $mail->isSMTP();
 	$mail->Body='<h1 align=center style="color:#D16BA5">Name:'.$_POST['name'].'</h1><h1 align=center style="color:#86A8E7">Email:'.$_POST['email'].'</h1><h1 align=center style="color:#5FFBF1">Phone Number:'.$_POST['phone'].'</h1><h1 align=center style="color:#845EC2">Message:'.$_POST['message'].'</h1>';
 	if(!$mail->send())
 	{
-		
+		echo "Not sent";
 	}else{
-		
+		echo "sent successfully";
 	}
 
 }
 
+*/
+// Import PHPMailer classes into the global namespace
+// These must be at the top of your script, not inside a function
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
+
+// Load Composer's autoloader
+require 'vendor/autoload.php';
+
+// Instantiation and passing `true` enables exceptions
+$mail = new PHPMailer(true);
+
+try {
+    //Server settings
+    $mail->SMTPDebug = 1;                      // Enable verbose debug output
+    $mail->isSMTP();                                            // Send using SMTP
+    $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
+    $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+    $mail->Username   = 'tokumaraguru.m@gmail.com';                     // SMTP username
+    $mail->Password   = '951369147123567';                               // SMTP password
+    $mail->SMTPSecure = 'tls';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
+    $mail->Port       = 587;                                    // TCP port to connect to
+
+    //Recipients
+    $mail->setFrom($_POST['email'],$_POST['name']);
+	$mail->addAddress('tokumaraguru.m@gmail.com');
+	$mail->addReplyTo($_POST['email'],$_POST['name']);
+	$mail->isHTML(true);
+	$mail->Subject=$_POST['subject'];
+	$mail->Body='<h1 align=center style="color:#D16BA5">Name:'.$_POST['name'].'</h1><h1 align=center style="color:#86A8E7">Email:'.$_POST['email'].'</h1><h1 align=center style="color:#5FFBF1">Phone Number:'.$_POST['phone'].'</h1><h1 align=center style="color:#845EC2">Message:'.$_POST['message'].'</h1>';
+    $mail->send();
+    echo 'Message has been sent';
+} catch (Exception $e) {
+    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+}
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -582,7 +622,7 @@ $mail->isSMTP();
 							<div class="row">
 								<div class="col-md-10 col-md-offset-1 col-md-pull-1 animate-box" data-animate-effect="fadeInRight">
 									<form action="" method="post"> 
-										<h5 class="text-center text-success"><?= $result; ?></h5>
+										<h5 class="text-center text-success"><!--<?= $result; ?>--></h5>
 										<div class="form-group">
 											<input type="text" name="name" class="form-control" placeholder="Name">
 										</div>
@@ -636,5 +676,13 @@ $mail->isSMTP();
 	<script src="js/main.js"></script>
 
 	</body>
+	<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="/__/firebase/6.0.4/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#reserved-urls -->
+
+<!-- Initialize Firebase -->
+<script src="/__/firebase/init.js"></script>
 </html>
 
